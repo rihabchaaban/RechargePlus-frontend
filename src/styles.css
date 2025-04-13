@@ -1,0 +1,103 @@
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /* Set global background color */
+    
+
+  }
+  
+  .app-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .steam-footer {
+    background: #171a21;
+    color: #b8b8b8;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  
+  
+
+html, body { height: 100%; }
+
+
+
+
+
+    * {
+      font: "Fira Sans", sans-serif !important;
+    }
+
+    angular-editor-toolbar button i {
+      font-family: FontAwesome !important;
+      color: black !important;
+      }
+
+        /* Floating Next Button */
+  .next-btn {
+    background: linear-gradient(45deg, #6338B0, #9A5ED6);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    float: right;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  
+  .next-btn:hover {
+    background: linear-gradient(45deg, #6338B0, #8A6BD5);
+}
+
+.back-btn {
+  background: linear-gradient(45deg, #6338B0, #9A5ED6);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  float: left;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  cursor: pointer;
+}
+
+
+.next-btn:hover {
+  background: linear-gradient(45deg, #6338B0, #8A6BD5);
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+select {
+  background-color: #37373A; /* Grey background */
+  color: white; /* White text */
+  border: 1px solid #ccc; /* Optional: border color */
+  padding: 8px; /* Optional: add some padding */
+  font-size: 16px; /* Optional: adjust font size */
+}
+
+select option {
+  background-color: #37373A; /* Same grey background for options */
+  color: white; /* White text for options */
+}
+
+select:focus {
+  outline: none; /* Optional: remove focus outline */
+}
