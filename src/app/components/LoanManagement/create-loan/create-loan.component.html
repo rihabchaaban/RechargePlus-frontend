@@ -1,28 +1,295 @@
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="p-4 shadow-sm loan-apply-form rounded">
-        <h4 class="fw-semibold mb-4">Apply for a New Loan</h4>
-        <form>
+<div class="container">
+  <div class="alert alert-info text-center my-4" *ngIf="loanDecisionMessage">
+    <strong>{{ loanDecisionMessage }}</strong>
+  </div>
+
+  <h2 class="mb-4">Apply for a Loan</h2>
+
+  <form (ngSubmit)="applyLoan()" #loanForm="ngForm" enctype="multipart/form-data" novalidate>
+
+    <!-- Loan Details -->
+    <fieldset class="border p-4 mb-4">
+      <legend class="w-auto px-2">Loan Information</legend>
+
+      <div class="row">
+
+        <!-- Left side: Form Inputs -->
+        <div class="col-md-5">
+      
+          <!-- Affichage erreur -->
+          <div *ngIf="loanError" 
+               class="alert alert-danger fade show" 
+               role="alert" 
+               [@fadeInOut]>
+            {{ loanError }}
+          </div>
+      
+          <!-- Requested Amount -->
           <div class="mb-3">
-            <label class="form-label">Loan Type</label>
-            <select class="form-select">
-              <option selected disabled>Select loan type</option>
-              <option>Personal Loan</option>
-              <option>Education Loan</option>
-              <option>Business Loan</option>
-              <option>Home Loan</option>
+            <label for="requestedAmount" class="form-label">Requested Amount:</label>
+            <input type="number" id="requestedAmount"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': requestedAmountInput.invalid && requestedAmountInput.touched }"
+                   [(ngModel)]="requestedAmount"
+                   (ngModelChange)="onLoanInputChange()"
+                   name="requestedAmount"
+                   required min="1"
+                   #requestedAmountInput="ngModel">
+            <div class="invalid-feedback">Please enter a valid amount greater than 0.</div>
+          </div>
+      
+          <!-- Requested Duration -->
+          <div class="mb-3">
+            <label for="requestedDuration" class="form-label">Requested Duration (in months):</label>
+            <input type="number" id="requestedDuration"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': requestedDurationInput.invalid && requestedDurationInput.touched }"
+                   [(ngModel)]="requestedDuration"
+                   (ngModelChange)="onLoanInputChange()"
+                   name="requestedDuration"
+                   required min="1"
+                   #requestedDurationInput="ngModel">
+            <div class="invalid-feedback">Please enter a valid duration in months.</div>
+          </div>
+      
+          <!-- Repayment Type -->
+          <div class="mb-3">
+            <label for="repaymentType" class="form-label">Repayment Type:</label>
+            <select id="repaymentType"
+                    class="form-control"
+                    [(ngModel)]="repaymentType"
+                    name="repaymentType"
+                    required
+                    #repaymentTypeInput="ngModel">
+              <option value="annuity">Constant Annuity</option>
+              <option value="amortization">Constant Amortization</option>
             </select>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Amount</label>
-            <input type="number" class="form-control" placeholder="Enter amount in USD" />
+      
+        </div>
+      
+        <!-- Right side: Repayment Schedule -->
+        <div class="col-md-7" *ngIf="loanSchedule">
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; background-color: #f9f9f9;">
+      
+            <!-- Constant Annuity Plan -->
+            <div *ngIf="repaymentType === 'annuity'">
+              <h4 class="text-center mb-4">Constant Annuity Repayment Plan</h4>
+              <table class="table table-striped table-bordered align-middle text-center">
+                <thead class="table-primary">
+                  <tr>
+                    <th style="padding: 2px 6px;">Month</th>
+                    <th style="padding: 2px 6px;">Principal Paid</th>
+                    <th style="padding: 2px 6px;">Interest Paid</th>
+                    <th style="padding: 2px 6px;">Monthly Payment</th>
+                    <th style="padding: 2px 6px;">Remaining Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of loanSchedule['Plan Annuités Constantes']">
+                    <td>{{ item.Mois }}</td>
+                    <td>{{ item['Capital Remboursé'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Intérêts'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Mensualité'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Capital Restant'] | number: '1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      
+            <!-- Constant Amortization Plan -->
+            <div *ngIf="repaymentType === 'amortization'">
+              <h4 class="text-center mb-4">Constant Amortization Repayment Plan</h4>
+              <table class="table table-striped table-bordered align-middle text-center">
+                <thead class="table-primary">
+                  <tr>
+                    <th style="padding: 2px 6px;">Month</th>
+                    <th style="padding: 2px 6px;">Principal Paid</th>
+                    <th style="padding: 2px 6px;">Interest Paid</th>
+                    <th style="padding: 2px 6px;">Monthly Payment</th>
+                    <th style="padding: 2px 6px;">Remaining Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of loanSchedule['Plan Amortissement Constant']">
+                    <td>{{ item.Mois }}</td>
+                    <td>{{ item['Capital Remboursé'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Intérêts'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Mensualité'] | number: '1.2-2' }}</td>
+                    <td>{{ item['Capital Restant'] | number: '1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      
           </div>
-          <div class="mb-3">
-            <label class="form-label">Term (in months)</label>
-            <input type="number" class="form-control" placeholder="e.g., 12, 24, 36" />
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Submit Application</button>
-        </form>
+        </div>
+      
       </div>
-    </div>
+      
+      
+    </fieldset>
+
+    <!-- Guarantor Details -->
+    <fieldset class="border p-4 mb-4">
+      <legend class="w-auto px-2">Guarantor Information</legend>
+
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name:</label>
+        <input type="text" id="fullName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': fullNameInput.invalid && fullNameInput.touched }"
+               [(ngModel)]="guarantor.fullName"
+               name="fullName"
+               required
+               #fullNameInput="ngModel">
+        <div class="invalid-feedback">Please enter the guarantor's full name.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="nationalId" class="form-label">National ID:</label>
+        <input type="text" id="nationalId"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': nationalIdInput.invalid && nationalIdInput.touched }"
+               [(ngModel)]="guarantor.nationalId"
+               name="nationalId"
+               pattern="^[0-9]{8}$"
+               required
+               #nationalIdInput="ngModel">
+        <div class="invalid-feedback">Please enter a valid National ID (8 digits).</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number:</label>
+        <input type="tel" id="phoneNumber"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': phoneNumberInput.invalid && phoneNumberInput.touched }"
+               [(ngModel)]="guarantor.phoneNumber"
+               name="phoneNumber"
+               pattern="^[0-9]{8,15}$"
+               required
+               #phoneNumberInput="ngModel">
+        <div class="invalid-feedback">Please enter a valid phone number (8–15 digits).</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="relationship" class="form-label">Relationship:</label>
+        <select id="relationship"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': relationshipInput.invalid && relationshipInput.touched }"
+                [(ngModel)]="guarantor.relationship"
+                name="relationship"
+                required
+                #relationshipInput="ngModel">
+          <option value="" disabled>Select Relationship</option>
+          <option value="parent">Parent</option>
+          <option value="sibling">Sibling</option>
+          <option value="spouse">Spouse</option>
+          <option value="friend">Friend</option>
+          <option value="colleague">Colleague</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="invalid-feedback">Please select a relationship.</div>
+      </div>
+      <div class="mb-3">
+        <label for="monthlyIncome" class="form-label">Monthly Income:</label>
+        <input type="number" id="monthlyIncome"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': monthlyIncomeInput.invalid && monthlyIncomeInput.touched }"
+               [(ngModel)]="guarantor.monthlyIncome"
+               name="monthlyIncome"
+               min="0"
+               required
+               #monthlyIncomeInput="ngModel">
+        <div class="invalid-feedback">Please enter a valid monthly income.</div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': emailInput.invalid && emailInput.touched }"
+          [(ngModel)]="guarantor.email"
+          name="email"
+          required
+          email 
+          #emailInput="ngModel">
+        
+        <div *ngIf="emailInput.errors?.['required'] && emailInput.touched" class="invalid-feedback">
+          Email is required.
+        </div>
+        <div *ngIf="emailInput.errors?.['email'] && emailInput.touched" class="invalid-feedback">
+          Please enter a valid email address.
+        </div>
+      </div>
+      
+      
+      
+      
+    </fieldset>
+
+    <!-- File Uploads -->
+    <fieldset class="border p-4 mb-4">
+      <legend class="w-auto px-2">Documents</legend>
+
+    <!-- Income Proof Upload -->
+<div class="mb-3">
+  <label for="incomeProof" class="form-label">Income Proof (PDF):</label>
+  <input type="file" id="incomeProof"
+         (change)="onIncomeProofSelected($event)"
+         class="form-control"
+         accept="application/pdf">
+  <div *ngIf="incomeProofError" class="invalid-feedback d-block">
+    {{ incomeProofError }}
   </div>
+</div>
+<!--
+<div class="mb-3">
+  <label for="incomeProof" class="form-label">Income Proof (PDF):</label>
+  
+  <div class="custom-file-upload">
+    <button type="button" class="btn btn-secondary" (click)="incomeProofInput.click()">Upload Income Proof</button>
+    <span class="ms-2">{{ incomeProofFile?.name || 'No file selected' }}</span>
+    <input #incomeProofInput type="file" id="incomeProof"
+           (change)="onIncomeProofSelected($event)"
+           class="d-none"
+           accept="application/pdf">
+  </div>
+
+  <div *ngIf="incomeProofError" class="invalid-feedback d-block">
+    {{ incomeProofError }}
+  </div>
+</div>
+-->
+
+
+
+
+<!-- Commitment Letter Upload -->
+<div class="mb-3">
+  <label for="commitmentLetter" class="form-label">Commitment Letter (PDF):</label>
+  <input type="file" id="commitmentLetter"
+         (change)="onCommitmentLetterSelected($event)"
+         class="form-control"
+         accept="application/pdf">
+  <div *ngIf="commitmentLetterError" class="invalid-feedback d-block">
+    {{ commitmentLetterError }}
+  </div>
+</div>
+
+
+    </fieldset>
+
+    <div class="text-center mt-4 mb-5">
+      <button type="submit"
+              class="btn shadow btn-luxury"
+              [disabled]="loanForm.invalid">
+        Submit Loan Application
+      </button>
+    </div>
+    
+
+  </form>
+</div>

@@ -1,0 +1,147 @@
+<div class="container my-5" *ngIf="loan">
+ 
+
+  <!-- Combined Loan + Guarantor Info -->
+
+    <div class="card shadow-sm mb-5">
+      <div class="card-header header-luxury">
+        <h5 class="mb-0">Loan Informations</h5>
+      </div>
+     
+    <div class="card-body p-4">
+      <div class="row g-4">
+        <!-- Loan Info -->
+        <div class="col-md-6">
+          <h6 class="text-primary mb-3 fw-bold fs-5 bg-light p-2 rounded border border-primary-subtle text-center">Loan Details</h6>
+          <div class="list-group list-group-flush">
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Amount:</strong>
+              <span>{{ loan.amount }} TND</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Interest Rate:</strong>
+              <span>{{ loan.interestRate }}%</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Duration:</strong>
+              <span>{{ loan.duration }} months</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Status:</strong>
+              <span class="badge" [ngClass]="{
+                'bg-success': loan.status === LoanStatus.REPAID,
+                'bg-warning text-dark': loan.status === LoanStatus.IN_PROGRESS,
+                'bg-danger': loan.status === LoanStatus.DEFAULT,
+                'bg-info text-white': loan.status === LoanStatus.REPAID_LATE
+              }">
+                {{ formatStatus(loan.status) }}
+              </span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Request Date:</strong>
+              <span>{{ loan.request_date | date: 'mediumDate' }}</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Total Repayment:</strong>
+              <span>{{ loan.total_repayment_amount }} TND</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Remaining Repayment:</strong>
+              <span>{{ loan.remaining_repayment }} TND</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical Separator -->
+        <div class="col-md-1 d-none d-md-flex justify-content-center">
+          <div class="vr" style="width: 2px; background-color: #e9ecef;"></div>
+        </div>
+
+        <!-- Guarantor Info -->
+        <div class="col-md-5" *ngIf="loan.guarantor">
+          <h6 class="text-primary mb-3 fw-bold fs-5 bg-light p-2 rounded border border-primary-subtle text-center">Guarantor Details</h6>
+          <div class="list-group list-group-flush">
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Name:</strong>
+              <span>{{ loan.guarantor.fullName }}</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Email:</strong>
+              <span>{{ loan.guarantor.email }}</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Phone Number:</strong>
+              <span>{{ loan.guarantor.phoneNumber }}</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <strong>Relationship:</strong>
+              <span>{{ loan.guarantor.relationship }}</span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-5">
+            <button class="btn btn-luxury  mt-20 w-100 align-items-center" (click)="scrollToContract()">
+              View Loan Contract
+            </button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Repayments -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header header-luxury">
+      <h5 class="mb-0">Repayments</h5>
+    </div>
+    
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-luxury table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Expected Date</th>
+              <th>Status</th>
+              <th>Monthly Amount</th>
+              <th>Interest</th>
+              <th>Repaid Principal</th>
+              <th>Remaining Principal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let repayment of loan.repayments">
+              <td>{{ repayment.expectedPaymentDate | date }}</td>
+              <td>
+                <span class="badge badge-luxury" [ngClass]="{
+                   'bg-luxury-progress': repayment.status === 'IN_PROGRESS',
+                   'bg-luxury-success': repayment.status === 'REPAID',
+                   'bg-luxury-danger': repayment.status === 'DEFAULT',
+                   'bg-luxury-warning': repayment.status === 'REPAID_LATE'
+                }">
+                  {{ formatStatus(repayment.status) }}
+                </span>
+              </td>
+              <td>{{ repayment.monthly_amount }} TND</td>
+              <td>{{ repayment.interest }} TND</td>
+              <td>{{ repayment.repaidPrincipal }} TND</td>
+              <td>{{ repayment.remainingPrincipal }} TND</td>
+            </tr>
+          </tbody>
+        </table>        
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Viewer -->
+  <div id="loan-contract"  class="card shadow-sm mb-5" *ngIf="pdfUrl">
+    <div class="card-header header-luxury">
+      <h5 class="mb-0">Loan Contract</h5>
+    </div>
+    <div class="card-body p-0">
+      <iframe [src]="pdfUrl" width="100%" height="600px" style="border: none;"></iframe>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,76 @@
+.table-luxury th {
+    background-color: #1e2a38;
+    color: #f8f9fa;
+    font-weight: 600;
+    border: none;
+  }
+  
+  .table-luxury td {
+    background-color: #fdfdfd;
+    color: #212529;
+    vertical-align: middle;
+    border: none;
+  }
+  
+  .table-luxury tr:hover td {
+    background-color: #f1f3f5;
+  }
+  
+  .badge-luxury {
+    padding: 0.45em 0.75em;
+    font-size: 0.85rem;
+    border-radius: 1rem;
+    font-weight: 500;
+  }
+  
+  .bg-luxury-progress {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .bg-luxury-success {
+    background-color: #198754;
+    color: white;
+  }
+  
+  .bg-luxury-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .bg-luxury-warning {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  .header-luxury {
+    background: linear-gradient(90deg, #1e2a38, #2f3b52);
+    color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+    padding: 1rem;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+  }
+  .btn-luxury {
+    background-color: white;
+    color: #2f3b52;
+    border: 2px solid #2f3b52;
+    border-radius: 12px; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-luxury:hover {
+    background-color: #2f3b52;
+    color: white;
+    border: 2px solid #2f3b52;
+    cursor: pointer;
+  }
+  
+  .btn-luxury.active {
+    background-color: #2f3b52;
+    color: white;
+    border: 2px solid #2f3b52;
+  }
+  
+  
+  

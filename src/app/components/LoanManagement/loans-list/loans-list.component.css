@@ -1,9 +1,51 @@
 .loan-card {
     transition: transform 0.2s ease;
+    border-radius: 12px; 
   }
   
   .loan-card:hover {
     transform: scale(1.01);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 12px; 
   }
+  .defaulted-hover {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border-radius: 12px; 
+}
+
+.defaulted-hover:hover {
+  border-color: #dc3545 !important; /* Rouge Bootstrap */
+  background-color: #ffeeee !important;
+  border-radius: 12px; 
+  transform: translateY(-2px);
+}
+
+.btn-luxury {
+  background-color: white;
+  color: #2f3b52;
+  border: 2px solid #2f3b52;
+  border-radius: 12px; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-luxury:hover {
+  background-color: #2f3b52;
+  color: white;
+  border: 2px solid #2f3b52;
+  cursor: pointer;
+}
+
+.btn-luxury.active {
+  background-color: #2f3b52;
+  color: white;
+  border: 2px solid #2f3b52;
+}
+.btn-outline-danger {
+  border-radius: 12px; 
+}
+.btn-outline-secondary{
+  border-radius: 12px;
+
+}
+
   

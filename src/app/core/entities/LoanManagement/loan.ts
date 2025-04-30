@@ -7,6 +7,7 @@ export enum Loan_Status {
     REPAID = 'REPAID',
     DEFAULT = 'DEFAULT',
     REPAID_LATE = 'REPAID_LATE',
+    NOT_YET_VALIDATED = 'NOT_YET_VALIDATED',
   // Add any other statuses you have in your backend
 }
 

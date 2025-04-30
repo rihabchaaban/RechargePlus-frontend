@@ -1,12 +1,67 @@
 <!-- Loan Page -->
 <section class="loans-page container my-5 py-4">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold">Manage Your Loans</h2>
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <h2 class="fw-bold m-0">Manage Your Loans</h2>
+    <button [routerLink]="['/apply']" class="btn btn-luxury">
+      <i class="fas fa-plus-circle me-2"></i> Apply for a Loan
+    </button>
+  </div>
+  
+ <!-- Loan Process Info Cards -->
+<div class="container mb-5">
+  <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+    <!-- Step 1 -->
+    <div class="col d-flex justify-content-center">
+      <div class="card h-100 text-center shadow-sm border-0" style="width: 18rem;">
+        <div class="card-body">
+          <i class="fas fa-file-alt fa-2x text-info mb-3"></i>
+          <h5 class="card-title fw-bold">Fill Loan Application</h5>
+          <p class="card-text">Start by completing the loan request form with your desired amount and details.</p>
+        </div>
+      </div>
     </div>
-  
-    <app-loans-list></app-loans-list>
-  
-    <!-- Apply for New Loan -->
 
-  </section>
+    <!-- Step 2 -->
+    <div class="col d-flex justify-content-center">
+      <div class="card h-100 text-center shadow-sm border-0" style="width: 18rem;">
+        <div class="card-body">
+          <i class="fas fa-user-plus fa-2x text-primary mb-3"></i>
+          <h5 class="card-title fw-bold">Add a Guarantor</h5>
+          <p class="card-text">Provide information about your guarantor by filling out their form.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="col d-flex justify-content-center">
+      <div class="card h-100 text-center shadow-sm border-0" style="width: 18rem;">
+        <div class="card-body">
+          <i class="fas fa-user-check fa-2x mb-3" style="color: #54C19E;"></i>
+          <h5 class="card-title fw-bold">Guarantor Validation</h5>
+          <p class="card-text">Wait for the admin to validate the guarantor you submitted.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="col d-flex justify-content-center">
+      <div class="card h-100 text-center shadow-sm border-0" style="width: 18rem;">
+        <div class="card-body">
+          <i class="fas fa-hand-holding-usd fa-2x text-warning mb-3"></i>
+          <h5 class="card-title fw-bold">Receive Your Loan</h5>
+          <p class="card-text">Once approved, your loan request will be automatically processed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+  <!-- Loan List Component -->
+  <app-loans-list></app-loans-list>
+</section>
+
   

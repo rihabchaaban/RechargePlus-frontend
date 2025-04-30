@@ -1,0 +1,92 @@
+<div class="container mt-4 mb-3" style="padding-bottom: 200px;">
+    <h3>Loan List</h3>
+    <div class="row mb-2">
+        <div class="col-md-4">
+          <label>Status:</label>
+          <select class="form-select" [(ngModel)]="statusFilter" (change)="applyFilters()">
+            <option value="">All</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="REPAID">Repaid</option>
+            <option value="REPAID_LATE">Repaid Late</option>
+            <option value="DEFAULT">Defaulted</option>
+            <option value="NOT_YET_VALIDATED">Not yet validated</option>
+          </select>
+        </div>
+      
+        <div class="col-md-4">
+          <label>Guarantor:</label>
+          <input type="text" class="form-control" [(ngModel)]="guarantorFilter" (input)="applyFilters()" placeholder="Search guarantor name..." />
+        </div>
+      </div>
+      
+    <div style="max-height: 350px; overflow-y: auto;">
+      <table class="table table-sm table-bordered table-striped table-hover mt-3 mb-5" style="font-size: 0.85rem; min-width: 1000px;">
+        <thead class="table-dark" style="position: sticky; top: 0; z-index: 1; background-color: #343a40;">
+          <tr>
+            <th>ID</th> 
+            <th>Status</th>
+            <th (click)="sortBy('duration')">
+              Duration              
+                <span *ngIf="sortColumn === 'duration'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+            <th (click)="sortBy('interestRate')">
+                Interest Rate 
+                <span *ngIf="sortColumn === 'interestRate'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+            <th (click)="sortBy('request_date')">
+                Request Date 
+                <span *ngIf="sortColumn === 'request_date'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+              <th (click)="sortBy('amount')">
+                Amount 
+                <span *ngIf="sortColumn === 'amount'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+              <th (click)="sortBy('total_repayment_amount')">
+                Total Repayment 
+                <span *ngIf="sortColumn === 'total_repayment_amount'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+              
+              <th (click)="sortBy('remaining_repayment')">
+                Remaining Repayment 
+                <span *ngIf="sortColumn === 'remaining_repayment'">
+                  {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                </span>
+              </th>
+            <th>Guarantor</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let loan of filteredLoans">
+            <td>{{ loan.idLoan }}</td>
+            <td>{{ formatStatus(loan.status) }}</td>
+            <td>{{ loan.duration }} Months</td>
+            <td>{{ loan.interestRate }} %</td>
+            <td>{{ loan.request_date | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td>{{ loan.amount }}</td>
+            <td>{{ loan.total_repayment_amount }}</td>
+            <td>{{ loan.remaining_repayment }}</td>
+            <td>{{ loan.guarantor?.fullName || 'N/A' }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" [routerLink]="['/loanDetail', loan.idLoan]">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="loans.length === 0" class="alert alert-warning">
+      No loans found.
+    </div>
+  </div>
+  

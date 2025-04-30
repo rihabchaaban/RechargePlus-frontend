@@ -7,7 +7,7 @@ export class Guarantor {
   phoneNumber!: string;          // Numéro de téléphone
   relationship!: string;         // Lien avec l'emprunteur
   monthlyIncome!: number;        // Revenu mensuel
-  bankCardNumber!: string;       // Numéro de carte bancaire
+  //bankCardNumber!: string;       // Numéro de carte bancaire
   email!: string;
   approuved!: boolean;           // Note: spelling preserved from backend
   userId!: number;
@@ -16,4 +16,5 @@ export class Guarantor {
   commitmentLetter!: Uint8Array; // Lettre d'engagement
 
   loan!: Loan;                   // Associated Loan (optional chaining can be added if needed)
+ 
 }

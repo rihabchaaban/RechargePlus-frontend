@@ -14,6 +14,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoanHomeComponent } from './components/LoanManagement/loan-home/loan-home.component';
 import { LoansListComponent } from './components/LoanManagement/loans-list/loans-list.component';
 import { CreateLoanComponent } from './components/LoanManagement/create-loan/create-loan.component';
+import { LoanDetailsComponent } from './components/LoanManagement/loan-details/loan-details.component';
+
+import { FormsModule } from '@angular/forms';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { AdminLoansComponent } from './components/LoanManagement/admin-loans/admin-loans.component';
+
 
 @NgModule({
   declarations: [
@@ -23,17 +30,24 @@ import { CreateLoanComponent } from './components/LoanManagement/create-loan/cre
     HomeComponent,
     LoanHomeComponent,
     LoansListComponent,
-    CreateLoanComponent
+    CreateLoanComponent,
+    LoanDetailsComponent,
+    AdminHomeComponent,
+    AdminHeaderComponent,
+    AdminLoansComponent,
+    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule 
 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

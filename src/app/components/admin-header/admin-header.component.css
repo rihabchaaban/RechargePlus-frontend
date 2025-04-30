@@ -1,4 +1,14 @@
-.btn-luxury {
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* S'assure que le header reste en haut */
+   /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Ligne sous le header */
+    background-color: #171a21 !important;
+
+  }
+  
+
+  .btn-luxury {
     background-color: white;
     color: #2f3b52;
     border: 2px solid #2f3b52;
@@ -18,17 +28,4 @@
     color: white;
     border: 2px solid #2f3b52;
   }
-  input.ng-invalid.ng-touched,
-select.ng-invalid.ng-touched {
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-}
-.scrollable-table {
-  max-height: 500px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #fff;
-}
-
+  
