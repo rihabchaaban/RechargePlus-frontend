@@ -1,0 +1,69 @@
+<button class="back-home" routerLink="/LoadHome">← Back Home</button>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Mon compte</h2>
+
+    
+
+
+    <!-- 📸 Photo de profil -->
+    <div class="profile-photo">
+      <label for="photoInput">
+        <img
+          [src]="user.photo || 'assets/img/default-profile.png'"
+          alt="Photo de profil"
+          class="photo-preview"
+          [ngClass]="{ 'fade-out': isRemovingPhoto }"
+        />
+      </label>
+      <input type="file" id="photoInput" (change)="onPhotoSelected($event)" accept="image/*" hidden />
+      <button class="delete-photo" (click)="removePhoto()">Supprimer la photo</button>
+    </div>
+
+    <!-- 👤 Formulaire de mise à jour -->
+    <form (ngSubmit)="onUpdate()">
+      <input [(ngModel)]="user.name" name="name" placeholder="Nom" />
+      <input [(ngModel)]="user.email" name="email" placeholder="Email" />
+      <input [(ngModel)]="user.mobile_number" name="mobile_number" placeholder="Téléphone" />
+      <input [(ngModel)]="user.address" name="address" placeholder="Adresse" />
+      <input type="date" [(ngModel)]="user.birth_date" name="birth_date" />
+      <input [(ngModel)]="user.country" name="country" placeholder="Pays" />
+
+
+      <p class="error-msg" *ngIf="passwordError">{{ passwordError }}</p>
+      <p class="success-msg" *ngIf="success">{{ success }}</p>
+
+      <button type="submit">Mettre à jour</button>
+    </form>
+
+    <hr />
+
+    <!-- 🔁 Toggle mot de passe -->
+    <button class="toggle-password-form" (click)="showPasswordForm = !showPasswordForm">
+      {{ showPasswordForm ? 'Masquer le formulaire de mot de passe' : 'Changer mon mot de passe' }}
+    </button>
+
+    <!-- 🔒 Formulaire mot de passe -->
+    <div *ngIf="showPasswordForm">
+      <form (ngSubmit)="onChangePassword()">
+        <input type="password" [(ngModel)]="passwords.old" name="oldPassword" placeholder="Ancien mot de passe" />
+        <input type="password" [(ngModel)]="passwords.new" name="newPassword" placeholder="Nouveau mot de passe" />
+        <input type="password" [(ngModel)]="passwords.confirm" name="confirmPassword" placeholder="Confirmer le nouveau mot de passe" />
+        <button type="submit">Valider le mot de passe</button>
+      </form>
+
+      <p class="error-msg" *ngIf="passwordError">{{ passwordError }}</p>
+      <p class="success-msg" *ngIf="passwordSuccess">{{ passwordSuccess }}</p>
+    </div>
+
+    <div *ngIf="notification.message" [ngClass]="notification.type" class="notification">
+      {{ notification.message }}
+    </div>
+    
+
+    <hr />
+
+    
+  </div>
+</div>

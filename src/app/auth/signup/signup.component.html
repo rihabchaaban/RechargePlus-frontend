@@ -1,0 +1,205 @@
+<!--<div class="auth-container">
+  <div class="auth-card">
+    <img src="assets/img/logo.png" alt="Recharge+" class="logo" />
+    <h2>Créer un compte Recharge+</h2>
+
+    <form (ngSubmit)="onSignup()" #signupForm="ngForm">
+      <input 
+        type="text" 
+        [(ngModel)]="user.name" 
+        name="name" 
+        placeholder="Nom complet" 
+        required 
+        minlength="3"
+        title="Veuillez saisir votre nom complet (au moins 3 caractères)" />
+
+      <input 
+        type="email" 
+        [(ngModel)]="user.email" 
+        name="email" 
+        placeholder="Email" 
+        required
+        title="Veuillez saisir une adresse email valide" />
+
+      <input 
+        type="password" 
+        [(ngModel)]="user.password" 
+        name="password" 
+        placeholder="Mot de passe" 
+        required 
+        minlength="6" 
+        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+        title="Le mot de passe doit contenir au moins 6 caractères, dont une lettre et un chiffre." />
+
+      <input 
+        type="tel" 
+        [(ngModel)]="user.mobile_number" 
+        name="mobile_number" 
+        placeholder="Numéro mobile" 
+        required 
+        pattern="^\d{8,15}$" 
+        title="Veuillez entrer un numéro mobile valide (8 à 15 chiffres)" />
+
+      <input 
+        type="text" 
+        [(ngModel)]="user.address" 
+        name="address" 
+        placeholder="Adresse" 
+        minlength="4"
+        title="Veuillez entrer une adresse valide (au moins 4 caractères)" />
+
+      <input 
+        type="date" 
+        [(ngModel)]="user.birth_date" 
+        name="birth_date" 
+        placeholder="Date de naissance"
+        title="Veuillez entrer votre date de naissance" />
+
+      <input 
+        type="text" 
+        [(ngModel)]="user.country" 
+        name="country" 
+        placeholder="Pays" 
+        minlength="2"
+        title="Veuillez entrer votre pays (au moins 2 caractères)" />
+
+      <button type="submit" [disabled]="!signupForm.form.valid">S'inscrire</button>
+    </form>
+
+    <p class="switch-link">
+      Déjà un compte ? <a routerLink="/signin">Se connecter</a>
+    </p>
+
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>-->
+
+<!--<div class="auth-container">
+  <div class="auth-card">
+    <img src="assets/img/logo.png" alt="Recharge+" class="logo" />
+    <h2>Créer un compte Recharge+</h2>
+
+    <form (ngSubmit)="onSignup()">
+      <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nom complet" required />
+      <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required />
+      <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" required />
+      <input type="text" [(ngModel)]="user.mobile_number" name="mobile_number" placeholder="Numéro mobile" required />
+      <input type="text" [(ngModel)]="user.address" name="address" placeholder="Adresse" />
+      <input type="date" [(ngModel)]="user.birth_date" name="birth_date" placeholder="Date de naissance" />
+      <input type="text" [(ngModel)]="user.country" name="country" placeholder="Pays" />
+
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <p class="switch-link">
+      Déjà un compte ? <a routerLink="/signin">Se connecter</a>
+    </p>
+
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>-->
+
+
+<div class="auth-container">
+  <div class="auth-card">
+    <img src="assets/img/logo.png" alt="Recharge+" class="logo" />
+    <h2>Create your Recharge+ account</h2>
+
+    <form #signupForm="ngForm" (ngSubmit)="onSignup()">
+      <!-- Full Name -->
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="user.name"
+        placeholder="Full Name"
+        required
+        #nameRef="ngModel"
+      />
+      <p class="error-msg" *ngIf="nameRef.invalid && nameRef.touched">
+        Full name is required.
+      </p>
+
+<!-- Email -->
+<input
+  type="email"
+  name="email"
+  [(ngModel)]="user.email"
+  placeholder="Email"
+  required
+  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+  #emailRef="ngModel"
+/>
+<p class="error-msg" *ngIf="emailRef.errors?.['required'] && emailRef.touched">
+  Email is required.
+</p>
+<p class="error-msg" *ngIf="emailRef.errors?.['pattern'] && emailRef.touched">
+  Please enter a valid email !
+</p>
+
+
+
+      <!-- Password -->
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="user.password"
+        placeholder="Password"
+        required
+        minlength="6"
+        #passwordRef="ngModel"
+      />
+      <p class="error-msg" *ngIf="passwordRef.invalid && passwordRef.touched">
+        Password is required (minimum 6 characters).
+      </p>
+
+      <!-- Mobile Number -->
+      <input
+        type="text"
+        name="mobile_number"
+        [(ngModel)]="user.mobile_number"
+        placeholder="Mobile Number"
+        required
+        pattern="^[0-9]{8,15}$"
+        #mobileRef="ngModel"
+      />
+      <p class="error-msg" *ngIf="mobileRef.invalid && mobileRef.touched">
+        Mobile number is required (8-15 digits).
+      </p>
+
+      <!-- Address -->
+      <input
+        type="text"
+        name="address"
+        [(ngModel)]="user.address"
+        placeholder="Address"
+        #addressRef="ngModel"
+      />
+
+      <!-- Birth Date -->
+      <input
+        type="date"
+        name="birth_date"
+        [(ngModel)]="user.birth_date"
+        placeholder="Birth Date"
+        #birthDateRef="ngModel"
+      />
+
+      <!-- Country -->
+      <input
+        type="text"
+        name="country"
+        [(ngModel)]="user.country"
+        placeholder="Country"
+        #countryRef="ngModel"
+      />
+
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+
+    <p class="switch-link">
+      Already have an account? <a routerLink="/signin">Log in</a>
+    </p>
+
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

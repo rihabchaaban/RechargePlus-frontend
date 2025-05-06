@@ -1,0 +1,29 @@
+<header class="navbar">
+    <div class="logo">
+      <img src="assets/img/logo.png" alt="Recharge+" />
+    </div>
+  
+    <nav class="nav-links">
+      <a routerLink="/accueil" routerLinkActive="active">HOME</a>
+      <a routerLink="/account" routerLinkActive="active">ACCOUNT</a>
+      <a routerLink="/loan" routerLinkActive="active">LOAN</a>
+      <a routerLink="/market" routerLinkActive="active">MARKET</a>
+      <a routerLink="/projects" routerLinkActive="active">PROJECTS</a>
+    </nav>
+  
+    <div class="icons">
+      <a routerLink="/cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count">3</span>
+      </a>
+  
+      <div class="user-menu">
+        <i class="fa fa-user-circle"></i>
+        <div class="dropdown">
+          <a routerLink="/profile">Mon compte</a>
+          <a (click)="logout()">Déconnexion</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  

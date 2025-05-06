@@ -1,0 +1,15 @@
+<div class="admin-container">
+    <aside class="sidebar">
+      <h3>Dashboard</h3>
+      <nav>
+        <a routerLink="/dashboard/users" routerLinkActive="active">👥 Utilisateurs</a>
+        <!-- Tu pourras ajouter ici Projets, Statistiques, etc. -->
+        <a (click)="logout()">🚪 Déconnexion</a>
+      </nav>
+    </aside>
+  
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  

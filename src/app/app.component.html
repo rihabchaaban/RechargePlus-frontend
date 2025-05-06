@@ -1,5 +1,12 @@
-<app-header></app-header>
-<main > <!-- Add padding to avoid overlap -->
+<!-- app.component.html -->
+
+<!-- ✅ Navbar uniquement hors des pages auth -->
+<app-navbar *ngIf="!isAuthPage()"></app-navbar>
+
+<!-- ✅ Contenu principal -->
 <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer>
+
+<!-- ✅ Footer uniquement hors des pages auth -->
+<app-footer *ngIf="!isAuthPage()"></app-footer>
+
+

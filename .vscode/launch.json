@@ -3,11 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ng serve",
       "type": "chrome",
       "request": "launch",
-      "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "name": "Launch Angular in Opera GX",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "C:/Users/souam/AppData/Local/Programs/Opera GX/opera.exe",
+      "userDataDir": true
     },
     {
       "name": "ng test",

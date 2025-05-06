@@ -1,0 +1,60 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <img src="assets/img/logo.png" alt="Recharge+" class="logo" />
+    <h2>Connexion à Recharge+</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+      <!-- Champ Email -->
+      <div class="input-group">
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          #emailInput="ngModel"
+          placeholder="Email" 
+          required
+          email
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        />
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="validation-error">
+          <small *ngIf="emailInput.errors?.['required']">L'email est obligatoire</small>
+          <small *ngIf="emailInput.errors?.['email'] || emailInput.errors?.['pattern']">Format email invalide</small>
+        </div>
+      </div>
+
+      <!-- Champ Mot de passe -->
+      <div class="input-group">
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          #passwordInput="ngModel"
+          placeholder="Mot de passe" 
+          required
+          minlength="6"
+        />
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-error">
+          <small *ngIf="passwordInput.errors?.['required']">Le mot de passe est obligatoire</small>
+          <small *ngIf="passwordInput.errors?.['minlength']">
+            Minimum 6 caractères ({{passwordInput.value?.length || 0}}/6)
+          </small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    </form>
+
+    <p class="forgot-link">
+      <a routerLink="/forgot-password">
+        <i class="fa fa-unlock-alt"></i> Mot de passe oublié ?
+      </a>
+    </p>
+
+    <p class="switch-link">
+      Pas encore inscrit ?
+      <a routerLink="/signup">Créer un compte</a>
+    </p>
+
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

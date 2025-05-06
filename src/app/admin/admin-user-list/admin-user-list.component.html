@@ -1,0 +1,151 @@
+<div class="container">
+  <h2>👥 Liste des utilisateurs</h2>
+  <input type="text" [(ngModel)]="searchTerm" placeholder="🔍 Rechercher..." (input)="onSearch()" />
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Statut</th> <!-- ✅ Nouvelle colonne -->
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.idUser }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+
+        <!-- ✅ Pastille de statut -->
+        <td>
+          <span [ngClass]="user.enabled ? 'badge-active' : 'badge-blocked'">
+            {{ user.enabled ? 'Actif' : 'Bloqué' }}
+          </span>
+        </td>
+
+        <td>
+          <button (click)="deleteUser(user.idUser)">🗑 Supprimer</button>
+          <button (click)="editUser(user)">✏️ Modifier</button>
+          <button (click)="toggleStatus(user.idUser)">
+            {{ user.enabled ? '🔒 Bloquer' : '🔓 Débloquer' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 🔁 Formulaire d'ajout -->
+<button (click)="toggleForm()" class="add-btn">➕ Ajouter un utilisateur</button>
+
+<<div *ngIf="showForm && !userToEdit" class="user-form">
+  <h3>Créer un utilisateur</h3>
+  
+  <!-- Nom -->
+  <input [(ngModel)]="newUser.name" 
+         #name="ngModel"
+         name="name" 
+         placeholder="Nom complet" 
+         required 
+         minlength="3" />
+  <small *ngIf="name.invalid && name.touched" style="color: red">
+    * Le nom doit avoir au moins 3 caractères
+  </small>
+
+  <!-- Email -->
+  <input [(ngModel)]="newUser.email" 
+         #email="ngModel"
+         name="email" 
+         placeholder="Email" 
+         required 
+         email />
+  <small *ngIf="email.invalid && email.touched" style="color: red">
+    * Entrez un email valide
+  </small>
+
+  <!-- Mot de passe -->
+  <input [(ngModel)]="newUser.password" 
+         #password="ngModel"
+         name="password" 
+         type="password" 
+         placeholder="Mot de passe" 
+         required 
+         minlength="6" />
+  <small *ngIf="password.invalid && password.touched" style="color: red">
+    * 6 caractères minimum
+  </small>
+
+  <!-- Rôle -->
+  <select [(ngModel)]="newUser.role" 
+          #role="ngModel"
+          name="role" 
+          required>
+    <option value="">-- Sélectionnez un rôle --</option>
+    <option value="ADMIN">Admin</option>
+    <option value="CLIENT">Client</option>
+  </select>
+  <small *ngIf="role.invalid && role.touched" style="color: red">
+    * Sélection obligatoire
+  </small>
+
+  <button (click)="addUser()" 
+          [disabled]="name.invalid || email.invalid || password.invalid || role.invalid">
+    Valider
+  </button>
+</div>
+
+<!-- ✏️ Formulaire de modification -->
+<div *ngIf="userToEdit" class="user-form">
+  <h3>Modifier l'utilisateur</h3>
+  
+  <!-- Nom -->
+  <input [(ngModel)]="userToEdit.name" 
+         #editName="ngModel"
+         name="editName" 
+         placeholder="Nom complet" 
+         required 
+         minlength="3" />
+  <small *ngIf="editName.invalid && editName.touched" style="color: red">
+    * Le nom doit avoir au moins 3 caractères
+  </small>
+
+  <!-- Email -->
+  <input [(ngModel)]="userToEdit.email" 
+         #editEmail="ngModel"
+         name="editEmail" 
+         placeholder="Email" 
+         required 
+         email />
+  <small *ngIf="editEmail.invalid && editEmail.touched" style="color: red">
+    * Entrez un email valide
+  </small>
+
+  <!-- Mot de passe (optionnel) -->
+  <input [(ngModel)]="userToEdit.password" 
+         name="editPassword" 
+         type="password" 
+         placeholder="Nouveau mot de passe (laisser vide si inchangé)" />
+
+  <!-- Rôle -->
+  <select [(ngModel)]="userToEdit.role" 
+          #editRole="ngModel"
+          name="editRole" 
+          required>
+    <option value="ADMIN">Admin</option>
+    <option value="CLIENT">Client</option>
+  </select>
+  <small *ngIf="editRole.invalid && editRole.touched" style="color: red">
+    * Sélection obligatoire
+  </small>
+
+  <button (click)="updateUser()" 
+          [disabled]="editName.invalid || editEmail.invalid || editRole.invalid">
+    Mettre à jour
+  </button>
+  <button (click)="cancelEdit()">Annuler</button>
+</div>
